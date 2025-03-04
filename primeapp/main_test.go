@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"io"
+	"os"
+	"testing"
+)
 
 func Test_isPrime(t *testing.T) {
 
@@ -32,4 +36,31 @@ func Test_isPrime(t *testing.T) {
 		}
 	}
 
+}
+
+func Test_prompt(t *testing.T) {
+	// save a copy of os.Stdout
+	oldOut := os.Stdout
+
+	// create a read and write  pipe
+	r, w, _ := os.Pipe()
+
+	// set os.Stdout to our write pipe
+	os.Stdout = w
+
+	propmpt()
+
+	// close our writer
+	_ = w.Close()
+
+	// reset os.Stdout to what is was before
+	os.Stdout = oldOut
+
+	// read the output of our prompt() func from our read pipe
+	out, _ := io.ReadAll(r)
+
+	// perform our test
+	if string(out) != "-> " {
+		t.Errorf("incorret propmt: expted -> but got %s", string(out))
+	}
 }

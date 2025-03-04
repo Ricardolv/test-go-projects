@@ -1,8 +1,10 @@
 # Testing in go
 
 ### Projects:
+- primeapp
 
-#### project primeapp, commands:
+
+#### Example, commands:
 ```console
 go test .
 ```
@@ -32,5 +34,3 @@ go tool cover -html=coverage.out
 ![test...](./data/primeapp/image-8.png)
 
 ---
-
-#### project primeapp, commands:
