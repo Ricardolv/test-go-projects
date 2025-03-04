@@ -25,6 +25,8 @@ func (app *application) render(w http.ResponseWriter, r *http.Request, t string,
 		http.Error(w, "bad request", http.StatusBadRequest)
 	}
 
+	data.IP = app.ipFromContext(r.Context())
+
 	// execute the template, passing it data, if any
 	err = parsedTemplate.Execute(w, data)
 	if err != nil {
