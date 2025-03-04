@@ -14,6 +14,7 @@ func (app *application) routes() http.Handler {
 	mux.Use(middleware.Recoverer)
 
 	// register routers
+	mux.Get("/", app.Home) // home page
 
 	// statics assets
 
