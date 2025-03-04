@@ -4,24 +4,32 @@ import "testing"
 
 func Test_isPrime(t *testing.T) {
 
-	result, msg := isPrime(0)
-
-	if result {
-		t.Errorf("With %d as test parameter, got true, but expected false", 0)
+	primeTests := []struct {
+		name     string
+		testNum  int
+		expected bool
+		msg      string
+	}{
+		{"0 is not prime", 0, false, "0 is not prime, by definition!"},
+		{"prime", 7, true, "7 is a prime number!"},
+		{"negative number", -1, false, "Negative numbers are not prime, by definition!"},
+		{"not prime", 8, false, "8 is not a prime number because it is divisible by 2!"},
 	}
 
-	if msg != "0 is not prime, by definition!" {
-		t.Error("Wrong message returned:", msg)
-	}
+	for _, e := range primeTests {
+		result, msg := isPrime(e.testNum)
 
-	result, msg = isPrime(7)
+		if e.expected && !result {
+			t.Errorf("%s: expected true but got false", e.name)
+		}
 
-	if !result {
-		t.Errorf("With %d as test parameter, got false, but expected true", 7)
-	}
+		if !e.expected && result {
+			t.Errorf("%s: expected false but got true", e.name)
+		}
 
-	if msg != "7 is a prime number!" {
-		t.Error("Wrong message returned:", msg)
+		if e.msg != msg {
+			t.Errorf("%s: expected %s but got %s", e.name, e.msg, msg)
+		}
 	}
 
 }
